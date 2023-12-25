@@ -1,0 +1,84 @@
+---
+title: "Probability Notes"
+author: "natsuMishi"
+date: "2023-12-25"
+output: html_document
+---
+
+# Section 2 Overview
+
+Section 2 introduces you to Continuous Probability.
+
+After completing Section 2, you will:
+
+-   understand the differences between calculating probabilities for discrete and continuous data.
+
+-   be able to use cumulative distribution functions to assign probabilities to intervals when dealing with continuous data.
+
+-   be able to use R to generate normally distributed outcomes for use in Monte Carlo simulations.
+
+-   know some of the useful theoretical continuous distributions in addition to the normal distribution, such as the student-t, chi-squared, exponential, gamma, beta, and beta-binomial distributions.
+
+# 2.1 Continuous Probability
+
+## Continuous Probability
+
+![](images/clipboard-2810912530.png)
+
+### Code: Cumulative distribution function
+
+Define `x` as male heights from the **dslabs** `heights` dataset:
+
+```{r}
+library(tidyverse)
+library(dslabs)
+data(heights)
+x <- heights %>% filter(sex=="Male") %>% pull(height)
+```
+
+Given a vector **`x`**, we can define a function for computing the CDF of **`x`** using:
+
+```{r}
+F <- function(a) mean(x <= a)
+1 - F(70)    # probability of male taller than 70 inches
+```
+
+## Theoretical Distribution
+
+### Code: Using `pnorm()` to calculate probabilities
+
+Given male heights `x`:
+
+```{r}
+library(tidyverse)
+library(dslabs)
+data(heights)
+x <- heights %>% filter(sex=="Male") %>% pull(height)
+```
+
+We can estimate the probability that a male is taller than 70.5 inches using:
+
+```{r}
+1 - pnorm(70.5, mean(x), sd(x))
+```
+
+### Code: Discretization and the normal approximation
+
+```{r}
+# plot distribution of exact heights in data
+plot(prop.table(table(x)), xlab = "a = Height in inches", ylab = "Pr(x = a)")
+
+# probabilities in actual data over length 1 ranges containing an integer
+mean(x <= 68.5) - mean(x <= 67.5)
+mean(x <= 69.5) - mean(x <= 68.5)
+mean(x <= 70.5) - mean(x <= 69.5)
+
+# probabilities in normal approximation match well
+pnorm(68.5, mean(x), sd(x)) - pnorm(67.5, mean(x), sd(x))
+pnorm(69.5, mean(x), sd(x)) - pnorm(68.5, mean(x), sd(x))
+pnorm(70.5, mean(x), sd(x)) - pnorm(69.5, mean(x), sd(x))
+
+# probabilities in actual data over other ranges don't match normal approx as well
+mean(x <= 70.9) - mean(x <= 70.1)
+pnorm(70.9, mean(x), sd(x)) - pnorm(70.1, mean(x), sd(x))
+```
