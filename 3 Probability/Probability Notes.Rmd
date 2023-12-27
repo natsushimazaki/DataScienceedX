@@ -185,3 +185,193 @@ data.frame(x, f = dnorm(x)) %>%
     ggplot(aes(x,f)) +
     geom_line()
 ```
+
+# Section 3 Overview
+
+Section 3 introduces you to Random Variables, Sampling Models, and the Central Limit Theorem.
+
+Section 3 is divided into two parts:
+
+1.  Random Variables and Sampling Models
+
+2.  The Central Limit Theorem.
+
+After completing Section 3, you will:
+
+-   understand what random variables are, how to generate them, and the correct mathematical notation to use with them.
+
+-   be able to use sampling models to estimate characteristics of a larger population.
+
+-   be able to explain the difference between a distribution and a probability distribution.
+
+-   understand the Central Limit Theorem and the law of large numbers.
+
+There are 2 assignments that use the DataCamp platform for you to practice your coding skills as well as a set of questions on the edX platform at the end of Section 3.
+
+# 3.1 Random Variables and Sampling Models
+
+### Random Variables
+
+-   Random variables are numeric outcomes resulting from random processes.
+
+-   Statistical inference offers a framework for quantifying uncertainty due to randomness.
+
+### Code: Modeling a random variable
+
+```{r}
+# define random variable x to be 1 if blue, 0 otherwise
+beads <- rep(c("red", "blue"), times = c(2, 3))
+x <- ifelse(sample(beads, 1) == "blue", 1, 0)
+
+# demonstrate that the random variable is different every time
+ifelse(sample(beads, 1) == "blue", 1, 0)
+ifelse(sample(beads, 1) == "blue", 1, 0)
+ifelse(sample(beads, 1) == "blue", 1, 0)
+```
+
+### Sampling Models
+
+![](images/clipboard-2090246089.png)
+
+-   A sampling model models the random behavior of a process as the sampling of draws from an urn.
+
+```{=html}
+<!-- -->
+```
+-   The **probability distribution of a random variable** is the probability of the observed value falling in any given interval.
+
+```{=html}
+<!-- -->
+```
+-   We can define a CDF to answer questions related to the probability of S being in any interval.
+
+```{=html}
+<!-- -->
+```
+-   The average of many draws of a random variable is called its **expected value**.
+
+```{=html}
+<!-- -->
+```
+-   The standard deviation of many draws of a random variable is called its **standard error**.
+
+### Monte Carlo simulation: Chance of casino losing money on roulette
+
+We build a sampling model for the random variable S that represents the casino's total winnings. 
+
+```{r}
+# sampling model 1: define urn, then sample
+color <- rep(c("Black", "Red", "Green"), c(18, 18, 2)) # define the urn for the sampling model
+n <- 1000
+X <- sample(ifelse(color == "Red", -1, 1), n, replace = TRUE)
+X[1:10]
+
+# sampling model 2: define urn inside sample function by noting probabilities
+x <- sample(c(-1, 1), n, replace = TRUE, prob = c(9/19, 10/19))    # 1000 independent draws
+S <- sum(x)    # total winnings = sum of draws
+S
+```
+
+We use the sampling model to run a Monte Carlo simulation and use the results to estimate the probability of the casino losing money.
+
+```{r}
+n <- 1000    # number of roulette players
+B <- 10000    # number of Monte Carlo experiments
+S <- replicate(B, {
+    X <- sample(c(-1,1), n, replace = TRUE, prob = c(9/19, 10/19))    # simulate 1000 spins
+    sum(X)    # determine total profit
+})
+
+mean(S < 0)    # probability of the casino losing money
+```
+
+We can plot a histogram of the observed values of S as well as the normal density curve based on the mean and standard deviation of S.
+
+```{r}
+library(tidyverse)
+s <- seq(min(S), max(S), length = 100)    # sequence of 100 values across range of S
+normal_density <- data.frame(s = s, f = dnorm(s, mean(S), sd(S))) # generate normal density for S
+data.frame (S = S) %>%    # make data frame of S for histogram
+    ggplot(aes(S, ..density..)) +
+    geom_histogram(color = "black", binwidth = 10) +
+    ylab("Probability") +
+    geom_line(data = normal_density, mapping = aes(s, f), color = "blue")
+```
+
+### Distributions versus Probability Distributions
+
+![](images/clipboard-827801095.png)
+
+-    A random variable has a probability distribution function that defines over all values of .
+
+```{=html}
+<!-- -->
+```
+-   Any list of numbers has a distribution. The probability distribution function of a random variable is defined mathematically and does not depend on a list of numbers.
+
+```{=html}
+<!-- -->
+```
+-   The results of a Monte Carlo simulation with a large enough number of observations will approximate the probability distribution of .
+
+```{=html}
+<!-- -->
+```
+-   If a random variable is defined as draws from an urn:
+
+    -   The probability distribution function of the random variable is defined as the distribution of the list of values in the urn.
+
+    -   The expected value of the random variable is the average of values in the urn.
+
+    -   The standard error of one draw of the random variable is the standard deviation of the values of the urn.
+
+### Notation for Random Variables
+
+![](images/clipboard-2504381508.png)
+
+-   Capital letters denote random variables () and lowercase letters denote observed values ().
+
+```{=html}
+<!-- -->
+```
+-   In the notation , we are asking how frequently the random variable is equal to the value . For example, if , this statement becomes .
+
+### Central Limit Theorem
+
+![](images/clipboard-3299349822.png)
+
+![](images/clipboard-1157300129.png)
+
+-   The Central Limit Theorem (CLT) says that the distribution of the sum of a random variable is approximated by a normal distribution.
+
+```{=html}
+<!-- -->
+```
+-   The expected value of a random variable, , is the average of the values in the urn. This represents the expectation of one draw. 
+
+```{=html}
+<!-- -->
+```
+-   The standard error of one draw of a random variable is the standard deviation of the values in the urn.
+
+```{=html}
+<!-- -->
+```
+-   The expected value of the sum of draws is the number of draws times the expected value of the random variable. 
+
+```{=html}
+<!-- -->
+```
+-   The standard error of the sum of independent draws of a random variable is the square root of the number of draws times the standard deviation of the urn. 
+
+These equations apply to the case where there are only two outcomes, and with proportions and respectively. The general principles above also apply to random variables with more than two outcomes.
+
+*Expected value of a random variable:* 
+
+*Expected value of the sum of n draws of a random variable:* 
+
+*Standard deviation of an urn with two values:* 
+
+*Standard error of the sum of n draws of a random variable:*
+
+# DataCamp Assessment: Random Variables and Sampling Models
