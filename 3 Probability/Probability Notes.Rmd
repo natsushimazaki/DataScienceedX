@@ -234,25 +234,9 @@ ifelse(sample(beads, 1) == "blue", 1, 0)
 ![](images/clipboard-2090246089.png)
 
 -   A sampling model models the random behavior of a process as the sampling of draws from an urn.
-
-```{=html}
-<!-- -->
-```
 -   The **probability distribution of a random variable** is the probability of the observed value falling in any given interval.
-
-```{=html}
-<!-- -->
-```
 -   We can define a CDF to answer questions related to the probability of S being in any interval.
-
-```{=html}
-<!-- -->
-```
 -   The average of many draws of a random variable is called its **expected value**.
-
-```{=html}
-<!-- -->
-```
 -   The standard deviation of many draws of a random variable is called its **standard error**.
 
 ### Monte Carlo simulation: Chance of casino losing money on roulette
@@ -269,7 +253,7 @@ X[1:10]
 # sampling model 2: define urn inside sample function by noting probabilities
 x <- sample(c(-1, 1), n, replace = TRUE, prob = c(9/19, 10/19))    # 1000 independent draws
 S <- sum(x)    # total winnings = sum of draws
-S
+S #S is a random variable
 ```
 
 We use the sampling model to run a Monte Carlo simulation and use the results to estimate the probability of the casino losing money.
@@ -285,7 +269,12 @@ S <- replicate(B, {
 mean(S < 0)    # probability of the casino losing money
 ```
 
-We can plot a histogram of the observed values of S as well as the normal density curve based on the mean and standard deviation of S.
+We can plot a histogram of the observed values of S as well as the normal density curve based on the mean and standard deviation of S. Calculated simply with
+
+```{r}
+sd(S)
+mean(S)
+```
 
 ```{r}
 library(tidyverse)
@@ -298,27 +287,16 @@ data.frame (S = S) %>%    # make data frame of S for histogram
     geom_line(data = normal_density, mapping = aes(s, f), color = "blue")
 ```
 
+Use QQ-plot to confirm that the normal approximation is close to perfect.
+
 ### Distributions versus Probability Distributions
 
 ![](images/clipboard-827801095.png)
 
--    A random variable has a probability distribution function that defines over all values of .
-
-```{=html}
-<!-- -->
-```
+-   A random variable has a probability distribution function that defines over all values of .
 -   Any list of numbers has a distribution. The probability distribution function of a random variable is defined mathematically and does not depend on a list of numbers.
-
-```{=html}
-<!-- -->
-```
 -   The results of a Monte Carlo simulation with a large enough number of observations will approximate the probability distribution of .
-
-```{=html}
-<!-- -->
-```
 -   If a random variable is defined as draws from an urn:
-
     -   The probability distribution function of the random variable is defined as the distribution of the list of values in the urn.
 
     -   The expected value of the random variable is the average of values in the urn.
@@ -330,38 +308,24 @@ data.frame (S = S) %>%    # make data frame of S for histogram
 ![](images/clipboard-2504381508.png)
 
 -   Capital letters denote random variables () and lowercase letters denote observed values ().
-
-```{=html}
-<!-- -->
-```
 -   In the notation , we are asking how frequently the random variable is equal to the value . For example, if , this statement becomes .
 
 ### Central Limit Theorem
 
 ![](images/clipboard-3299349822.png)
 
+```{r}
+B <- 10^6 #million games
+X <- sample(c(-1,1), B, replace = TRUE, prob = c(9/19, 10/19))
+mean(X)
+```
+
 ![](images/clipboard-1157300129.png)
 
 -   The Central Limit Theorem (CLT) says that the distribution of the sum of a random variable is approximated by a normal distribution.
-
-```{=html}
-<!-- -->
-```
 -   The expected value of a random variable, , is the average of the values in the urn. This represents the expectation of one draw. 
-
-```{=html}
-<!-- -->
-```
 -   The standard error of one draw of a random variable is the standard deviation of the values in the urn.
-
-```{=html}
-<!-- -->
-```
 -   The expected value of the sum of draws is the number of draws times the expected value of the random variable. 
-
-```{=html}
-<!-- -->
-```
 -   The standard error of the sum of independent draws of a random variable is the square root of the number of draws times the standard deviation of the urn. 
 
 These equations apply to the case where there are only two outcomes, and with proportions and respectively. The general principles above also apply to random variables with more than two outcomes.
@@ -373,5 +337,14 @@ These equations apply to the case where there are only two outcomes, and with pr
 *Standard deviation of an urn with two values:* 
 
 *Standard error of the sum of n draws of a random variable:*
+
+```{r}
+n <- 1000
+sqrt(n) * 2 * sqrt(90/19)
+#How likely is the casino to lose money?
+mu <- n*(20-18)/38
+se <- sqrt(n) * 2 * sqrt(90)/19
+pnorm(0, mu, se)
+```
 
 # DataCamp Assessment: Random Variables and Sampling Models
