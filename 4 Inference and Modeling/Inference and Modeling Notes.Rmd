@@ -74,13 +74,13 @@ take_poll(25)    # draw 25 beads
 
 # Assessment 1.1: Parameters and Estimates
 
-# Exercise 1. Polling - expected value of S
+## Exercise 1. Polling - expected value of S
 
 1\. Suppose you poll a population in which a proportion p of voters are Democrats and 1−p are Republicans. Your sample size is N=25. Consider the random variable S which is the **total** number of Democrats in your sample. What is the expected value of this random variable? Hint: it’s a function of p.
 
 Ans. E(S) = 25 \* p
 
-# Exercise 2. Polling - standard error of S
+## Exercise 2. Polling - standard error of S
 
 ![](images/clipboard-3851961928.png)
 
@@ -88,13 +88,13 @@ Ans. E(S) = 25 \* p
 
 ![](images/clipboard-2080617049.png){width="181"}
 
-# Exercise 3. Polling - expected value of X-bar
+## Exercise 3. Polling - expected value of X-bar
 
 ![![](images/clipboard-1955129058.png){width="122"}](images/clipboard-2815746691.png)
 
 3\. Consider the random variable S/N. This is equivalent to the sample average, which we have been denoting as ¯X. What is the expected value of the ¯X? Hint: it’s a function of p.
 
-# Exercise 4. Polling - standard error of X-bar
+## Exercise 4. Polling - standard error of X-bar
 
 ![](images/clipboard-3808667543.png)
 
@@ -102,7 +102,7 @@ Ans. E(S) = 25 \* p
 
 4\. What is the standard error of ¯X? Hint: it’s a function of p.
 
-# Exercise 5. se versus p
+## Exercise 5. se versus p
 
 Write a line of code that calculates the standard error `se` of a sample average when you poll 25 people in the population. Generate a sequence of 100 proportions of Democrats `p` that vary from 0 (no Democrats) to 1 (all Democrats).
 
@@ -129,7 +129,7 @@ se
 plot(p, se)
 ```
 
-# Exercise 6. Multiple plots of se versus p
+## Exercise 6. Multiple plots of se versus p
 
 ![](images/clipboard-1439325597.png)
 
@@ -155,19 +155,19 @@ for(n in sample_sizes){
 }
 ```
 
-# Exercise 7. Expected value of d
+## Exercise 7. Expected value of d
 
 ![](images/clipboard-847696336.png)
 
 ![](images/clipboard-1315534093.png)
 
-# Exercise 8. Standard error of d
+## Exercise 8. Standard error of d
 
 ![](images/clipboard-3313486290.png)
 
 ![](images/clipboard-2452175276.png)
 
-# Exercise 9. Standard error of the spread
+## Exercise 9. Standard error of the spread
 
 ![](images/clipboard-1801572909.png)
 
@@ -182,7 +182,7 @@ p <- 0.45
 2*sqrt(p*(1-p)/N)
 ```
 
-# Exercise 10. Sample size
+## Exercise 10. Sample size
 
 ![](images/clipboard-2372263968.png)
 
@@ -284,7 +284,7 @@ data.frame(p = p, SE = SE) %>%
 
 # Assessment 2.1: Introduction to Inference
 
-# Exercise 1. Sample average
+## Exercise 1. Sample average
 
 Write function called `take_sample` that takes the proportion of Democrats p and the sample size N as arguments and returns the sample average of Democrats (1) and Republicans (0).
 
@@ -312,7 +312,7 @@ N <- 100
 take_sample(p, N)
 ```
 
-# Exercise 2. Distribution of errors - 1
+## Exercise 2. Distribution of errors - 1
 
 ![](images/clipboard-1445621711.png)
 
@@ -349,7 +349,7 @@ errors <- replicate(B, {
 mean(errors)
 ```
 
-# Exercise 3. Distribution of errors - 2
+## Exercise 3. Distribution of errors - 2
 
 ![](images/clipboard-2189136323.png)
 
@@ -357,7 +357,7 @@ The `errors` object has already been loaded for you. Use the `hist` function to 
 
 ![![](images/clipboard-1090704458.png)](images/clipboard-3251208375.png)
 
-# Exercise 4. Average size of error
+## Exercise 4. Average size of error
 
 ![](images/clipboard-162436746.png)
 
@@ -382,7 +382,7 @@ mean(abs(errors))
 
 ```
 
-# Exercise 5. Standard deviation of the spread
+## Exercise 5. Standard deviation of the spread
 
 The standard error is related to the typical **size** of the error we make when predicting. We say **size** because, as we just saw, the errors are centered around 0. In that sense, the typical error is 0. For mathematical reasons related to the central limit theorem, we actually use the standard deviation of `errors` rather than the average of the absolute values.
 
@@ -407,7 +407,7 @@ sqrt(mean((errors)^2))
 
 ```
 
-# Exercise 6. Estimating the standard error
+## Exercise 6. Estimating the standard error
 
 ![](images/clipboard-2893701149.png)
 
@@ -424,7 +424,7 @@ N <- 100
 sqrt(p*(1-p)/N)
 ```
 
-# Exercise 7. Standard error of the estimate
+## Exercise 7. Standard error of the estimate
 
 ![](images/clipboard-3509517342.png)
 
@@ -461,7 +461,7 @@ sqrt((X_bar * (1-X_bar))/N)
 
 ```
 
-# Exercise 8. Plotting the standard error
+## Exercise 8. Plotting the standard error
 
 ![](images/clipboard-1311434742.png)
 
@@ -474,19 +474,19 @@ plot(se, N)
 
 ![![](images/clipboard-2298647615.png)](images/clipboard-1973722717.png)
 
-# Exercise 9. Distribution of X-hat
+## Exercise 9. Distribution of X-hat
 
 ![](images/clipboard-2372815898.png)
 
 ![](images/clipboard-2438765111.png)
 
-# Exercise 10. Distribution of the errors
+## Exercise 10. Distribution of the errors
 
 ![](images/clipboard-705616515.png)
 
 ![](images/clipboard-2213686483.png)
 
-# Exercise 11. Plotting the errors
+## Exercise 11. Plotting the errors
 
 Make a qq-plot of the `errors` you generated previously to see if they follow a normal distribution.
 
@@ -517,7 +517,7 @@ qqnorm(errors)
 qqline(errors)
 ```
 
-# Exercise 12. Estimating the probability of a specific value of X-bar
+## Exercise 12. Estimating the probability of a specific value of X-bar
 
 ![](images/clipboard-1196500618.png)
 
@@ -536,7 +536,7 @@ N <- 100
 1-pnorm(0.5, p, sqrt(p*(1-p)/N))
 ```
 
-# Exercise 13. Estimating the probability of a specific error size
+## Exercise 13. Estimating the probability of a specific error size
 
 ![](images/clipboard-5542308.png)
 
@@ -561,3 +561,62 @@ se_hat <- sqrt(X_hat*(1-X_hat)/N)
 ```
 
 Note: CLT works if Xbar i used in place of p. Plug-in estimate.
+
+# Section 3 Overview
+
+In Section 3, you will look at confidence intervals and p-values.
+
+After completing Section 3, you will be able to:
+
+-   Calculate confidence intervals of difference sizes around an estimate.
+
+-   Understand that a confidence interval is a random interval with the given probability of falling on top of the parameter.
+
+-   Explain the concept of "power" as it relates to inference.
+
+-   Understand the relationship between p-values and confidence intervals and explain why reporting confidence intervals is often preferable.
+
+## Confidence Intervals
+
+![](images/clipboard-3124435332.png)
+
+### Code: geom_smooth confidence interval example
+
+The shaded area around the curve is related to the concept of confidence intervals.
+
+```{r}
+data("nhtemp")
+data.frame(year = as.numeric(time(nhtemp)), temperature = as.numeric(nhtemp)) %>%
+    ggplot(aes(year, temperature)) +
+    geom_point() +
+    geom_smooth() +
+    ggtitle("Average Yearly Temperatures in New Haven")
+```
+
+### Code: Monte Carlo simulation of confidence intervals
+
+Note that to compute the exact 95% confidence interval, we would use qnorm(.975)\*SE_hat instead of 2\*SE_hat.
+
+```{r}
+p <- 0.45
+N <- 1000
+X <- sample(c(0,1), size = N, replace = TRUE, prob = c(1-p, p))    # generate N observations
+X_hat <- mean(X)    # calculate X_hat
+SE_hat <- sqrt(X_hat*(1-X_hat)/N)    # calculate SE_hat, SE of the mean of N observations
+c(X_hat - 2*SE_hat, X_hat + 2*SE_hat)    # build interval of 2*SE above and below mean
+```
+
+### Code: Solving for z with `qnorm`
+
+```{r}
+z <- qnorm(0.995)    # calculate z to solve for 99% confidence interval
+pnorm(qnorm(0.995))    # demonstrating that qnorm gives the z value for a given probability
+pnorm(qnorm(1-0.995))    # demonstrating symmetry of 1-qnorm
+pnorm(z) - pnorm(-z)    # demonstrating that this z value gives correct probability for interval
+```
+
+## A Visual Clarification of Confidence Intervals
+
+![A common source of confusion is why `qnorm(.975)` is used rather than `qnorm(.95)` to find the 95% confidence interval. This is because the normal distribution is symmetric and our confidence interval should cover the middle 95% of the distribution:](images/clipboard-3989755348.png)
+
+![![](images/clipboard-390637980.png)](images/ci95.png)

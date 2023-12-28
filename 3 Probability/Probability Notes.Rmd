@@ -583,7 +583,7 @@ sqrt(n) * (abs(-1-17)*sqrt(p_green*(p_not_green)))
 
 # DataCamp Assessment: The Central Limit Theorem
 
-# Exercise 1. American Roulette probability of winning money
+## Exercise 1. American Roulette probability of winning money
 
 The exercises in the previous chapter explored winnings in American roulette. In this chapter of exercises, we will continue with the roulette example and add in the Central Limit Theorem.
 
@@ -615,7 +615,7 @@ se <- sqrt(n) * (17 - -1)*sqrt(p_green*p_not_green)
 1-pnorm(0,avg,se)
 ```
 
-# Exercise 2. American Roulette Monte Carlo simulation
+## Exercise 2. American Roulette Monte Carlo simulation
 
 Create a Monte Carlo simulation that generates 10,000 outcomes of S, the sum of 100 bets.
 
@@ -660,7 +660,7 @@ sd(S)
 
 ```
 
-# Exercise 3. American Roulette Monte Carlo vs CLT
+## Exercise 3. American Roulette Monte Carlo vs CLT
 
 In this chapter, you calculated the probability of winning money in American roulette using the CLT.
 
@@ -673,13 +673,13 @@ Now, calculate the probability of winning money from the Monte Carlo simulation.
 mean(S>0)
 ```
 
-# Exercise 4. American Roulette Monte Carlo vs CLT comparison
+## Exercise 4. American Roulette Monte Carlo vs CLT comparison
 
 The Monte Carlo result and the CLT approximation for the probability of losing money after 100 bets are close, but not that close. What could account for this?
 
 Ans. The CLT does not work as well when the probability of success is small. If we make the number of roulette plays bigger, the probabilities will match better.
 
-# Exercise 5. American Roulette average winnings per bet
+## Exercise 5. American Roulette average winnings per bet
 
 Now create a random variable Y that contains your average winnings per bet after betting on green 10,000 times.
 
@@ -714,7 +714,7 @@ Y
 
 The mean outcome per bet is a weighted average of these possible outcomes based on their probabilities. The printed result (`Y`) gives you an idea of the expected value or average outcome for each bet in this scenario.
 
-# Exercise 6. American Roulette per bet expected value
+## Exercise 6. American Roulette per bet expected value
 
 What is the expected value of Y, the average outcome per bet after betting on green 10,000 times?
 
@@ -735,7 +735,7 @@ p_not_green <- 1 - p_green
 (17)*(p_green) + (-1)*(p_not_green)
 ```
 
-# Exercise 7. American Roulette per bet standard error
+## Exercise 7. American Roulette per bet standard error
 
 What is the standard error of Y, the average result of 10,000 spins?
 
@@ -755,7 +755,7 @@ p_not_green <- 1 - p_green
 abs(-1 - 17) * sqrt(p_green * p_not_green)/sqrt(n)
 ```
 
-# Exercise 8. American Roulette winnings per game are positive
+## Exercise 8. American Roulette winnings per game are positive
 
 What is the probability that your winnings are positive after betting on green 10,000 times?
 
@@ -774,7 +774,7 @@ se <- 1/sqrt(n) * (17 - -1)*sqrt(p_green*p_not_green)
 1-pnorm(0,avg,se)
 ```
 
-# Exercise 9. American Roulette Monte Carlo again
+## Exercise 9. American Roulette Monte Carlo again
 
 Create a Monte Carlo simulation that generates 10,000 outcomes of S, the average outcome from 10,000 bets on green.
 
@@ -813,7 +813,7 @@ mean(S)
 sd(S)
 ```
 
-# Exercise 10. American Roulette comparison
+## Exercise 10. American Roulette comparison
 
 In a previous exercise, you found the probability of winning more than \$0 after betting on green 10,000 times using the Central Limit Theorem. Then, you used a Monte Carlo simulation to model the average result of betting on green 10,000 times over 10,000 simulated series of bets.
 
@@ -828,7 +828,7 @@ What is the probability of winning more than \$0 as estimated by your Monte Carl
 mean(S>0)
 ```
 
-# Exercise 11. American Roulette comparison analysis
+## Exercise 11. American Roulette comparison analysis
 
 The Monte Carlo result and the CLT approximation are now much closer than when we calculated the probability of winning for 100 bets on green. What could account for this difference?
 
@@ -836,7 +836,7 @@ Ans. The CLT works better when the sample size is larger. We increased the sampl
 
 # 3.3 Assessment: Random Variables, Sampling Models, and the Central Limit Theorem (15 Questions)
 
-# Questions 1 and 2: SAT testing
+## Questions 1 and 2: SAT testing
 
 The SAT is a standardized college admissions test used in the United States. The following two multi-part questions will ask you some questions about SAT testing.
 
@@ -953,7 +953,7 @@ min(p[which(exp_val > 0.8)])
 
 -   `p[which(exp_val > 0.8)]`: This extracts the elements from the vector `p` that correspond to the positions where `exp_val` is greater than 0.8.
 
-# Question 3: Betting on Roulette
+## Question 3: Betting on Roulette
 
 A casino offers a House Special bet on roulette, which is a bet on five pockets (00, 0, 1, 2, 3) out of 38 total pockets. The bet pays out 6 to 1. In other words, a losing bet yields -\$1 and a successful bet yields \$6. A gambler wants to know the chance of losing money if he places 500 bets on the roulette House Special.
 
@@ -1233,7 +1233,7 @@ The theory completely breaks down, and our random variable has much more variabi
 
 # DataCamp Assessment: The Big Short
 
-# Exercise 1. Bank earnings
+## Exercise 1. Bank earnings
 
 Say you manage a bank that gives out 10,000 loans. The default rate is 0.03 and you lose \$200,000 in each foreclosure.
 
@@ -1266,7 +1266,7 @@ S <- sum(defaults) * loss_per_foreclosure
 S
 ```
 
-# Exercise 2. Bank earnings Monte Carlo
+## Exercise 2. Bank earnings Monte Carlo
 
 Run a Monte Carlo simulation with 10,000 outcomes for , the sum of losses over 10,000 loans. Make a histogram of the results.
 
@@ -1304,7 +1304,7 @@ hist(S)
 
 ```
 
-# Exercise 3. Bank earnings expected value
+## Exercise 3. Bank earnings expected value
 
 What is the expected value of S, the sum of losses over 10,000 loans? For now, assume a bank makes no money if the loan is paid.
 
@@ -1326,7 +1326,7 @@ n * loss_per_foreclosure * p_default
 
 ```
 
-# Exercise 4. Bank earnings standard error
+## Exercise 4. Bank earnings standard error
 
 What is the standard error of S?
 
@@ -1346,7 +1346,7 @@ p_default <- 0.03
 sqrt(n) * abs(loss_per_foreclosure) * sqrt(p_default * (1-p_default))
 ```
 
-# Exercise 5. Bank earnings interest rate - 1
+## Exercise 5. Bank earnings interest rate - 1
 
 So far, we've been assuming that we make no money when people pay their loans and we lose a lot of money when people default on their loans. Assume we give out loans for \$180,000. How much money do we need to make when people pay their loans so that our net loss is \$0?
 
@@ -1370,7 +1370,7 @@ x <- -loss_per_foreclosure*p_default/(1-p_default)
 x/180000
 ```
 
-# Exercise 6. Bank earnings interest rate - 2
+## Exercise 6. Bank earnings interest rate - 2
 
 ![](images/clipboard-110778061.png)
 
@@ -1400,7 +1400,7 @@ x <- -loss_per_foreclosure*( n*p_default - z*sqrt(n*p_default*(1-p_default)))/ (
 x/180000
 ```
 
-# Exercise 7. Bank earnings - minimize money loss
+## Exercise 7. Bank earnings - minimize money loss
 
 The bank wants to minimize the probability of losing money. Which of the following achieves their goal without making interest rates go up?
 
