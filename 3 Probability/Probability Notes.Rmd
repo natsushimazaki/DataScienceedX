@@ -563,7 +563,7 @@ sqrt(n) * (abs(-1-17)*sqrt(p_green*(p_not_green)))
 
 ![](images/clipboard-58223925.png)
 
-### Law of Large Numbers 
+### Law of Large Numbers
 
 -   The law of large numbers states that as increases, the standard error of the average of a random variable decreases. In other words, when is large, the average of the draws converges to the average of the urn.
 
@@ -844,7 +844,7 @@ This is a 6-part question asking you to determine some probabilities of what hap
 
 An old version of the SAT college entrance exam had a -0.25 point penalty for every incorrect answer and awarded 1 point for a correct answer. The quantitative test consisted of 44 multiple-choice questions each with 5 answer choices. Suppose a student chooses answers by guessing for all questions on the test.
 
-###    Question 1a 
+### Question 1a
 
 What is the probability of guessing correctly for one question?
 
@@ -853,7 +853,7 @@ p <- 1/5 # one correct choice of 5 options
 p
 ```
 
-###    Question 1b 
+### Question 1b
 
 What is the expected value of points for guessing on one question?
 
@@ -864,7 +864,7 @@ mu <- a*p + b*(1-p)
 mu
 ```
 
-###    Question 1c 
+### Question 1c
 
 What is the expected score of guessing on all 44 questions?
 
@@ -873,7 +873,7 @@ n <- 44
 n*mu
 ```
 
-###    Question 1d 
+### Question 1d
 
 What is the standard error of guessing on all 44 questions?
 
@@ -882,7 +882,7 @@ sigma <- sqrt(n) * abs(b-a) * sqrt(p*(1-p))
 sigma
 ```
 
-###    Question 1e 
+### Question 1e
 
 Use the Central Limit Theorem to determine the probability that a guessing student scores 8 points or higher on the test.
 
@@ -890,7 +890,7 @@ Use the Central Limit Theorem to determine the probability that a guessing stude
 1-pnorm(8, mu, sigma)
 ```
 
-###    Question 1f 
+### Question 1f
 
 Set the seed to 21, then run a Monte Carlo simulation of 10,000 students guessing on the test.
 
@@ -913,7 +913,7 @@ The SAT was recently changed to reduce the number of multiple choice options fro
 
 In this two-part question, you'll explore how that affected the expected values for the test.
 
-###    Question 2a 
+### Question 2a
 
 Suppose that the number of multiple choice options is 4 and that there is no penalty for guessing - that is, an incorrect question gives a score of 0.
 
@@ -928,7 +928,7 @@ mu <- n * a*p + b*(1-p)
 mu
 ```
 
-###    Question 2b 
+### Question 2b
 
 Consider a range of correct answer probabilities `p <- seq(0.25, 0.95, 0.05)` representing a range of student skills.
 
@@ -967,7 +967,7 @@ n <- 500
 a
 ```
 
-###    Question 3a 
+### Question 3a
 
 What is the expected value of the payout for one bet?
 
@@ -976,7 +976,7 @@ exp_val <- a*p + b*(1-p)
 mu <- exp_val
 ```
 
-###    Question 3b 
+### Question 3b
 
 What is the standard error of the payout for one bet?
 
@@ -985,7 +985,7 @@ sigma <- sqrt(1) * abs(b-a) * sqrt(p*(1-p))
 sigma
 ```
 
-###    Question 3c 
+### Question 3c
 
 What is the expected value of the average payout over 500 bets?
 
@@ -995,7 +995,7 @@ Remember there is a difference between expected value of the average and expecte
 mu
 ```
 
-###    Question 3d 
+### Question 3d
 
 What is the standard error of the average payout over 500 bets?
 
@@ -1005,7 +1005,7 @@ Remember there is a difference between the standard error of the average and sta
 sigma/sqrt(n)
 ```
 
-###    Question 3e 
+### Question 3e
 
 What is the expected value of the sum of 500 bets?
 
@@ -1013,7 +1013,7 @@ What is the expected value of the sum of 500 bets?
 n*mu
 ```
 
-###    Question 3f 
+### Question 3f
 
 What is the standard error of the sum of 500 bets?
 
@@ -1021,7 +1021,7 @@ What is the standard error of the sum of 500 bets?
 sqrt(n)*sigma
 ```
 
-###    Question 3g 
+### Question 3g
 
 Use `pnorm()` with the expected value of the sum and standard error of the sum to calculate the probability of losing money over 500 bets, ![](images/clipboard-1803692412.png){width="56" height="14"}.
 
@@ -1043,7 +1043,7 @@ After completing Section 4, you will:
 
 There is 1 assignment that uses the DataCamp platform for you to practice your coding skills. For IDV learners, there is an additional assignment with exercises on insurance that will comprehensively assess what you've learned throughout the course.
 
-### The Big Short: Interest Rates Explained 
+### The Big Short: Interest Rates Explained
 
 -   Interest rates for loans are set using the probability of loan defaults to calculate a rate that minimizes the probability of losing money.
 
@@ -1075,7 +1075,7 @@ losses <- replicate(B, {
 })
 ```
 
-### Code: Plotting expected losses 
+### Code: Plotting expected losses
 
 ```{r}
 library(tidyverse)
