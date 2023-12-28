@@ -1,0 +1,60 @@
+---
+title: "Inference and Modeling Notes"
+author: "natsuMishi"
+date: "2023-12-28"
+output: html_document
+---
+
+# Section 1: Parameters and Estimates
+
+# Section 1 Overview
+
+Section 1 introduces you to parameters and estimates.
+
+After completing Section 1, you will be able to:
+
+-   Understand how to use a sampling model to perform a poll.
+
+-   Explain the terms **population**, **parameter**, and **sample** as they relate to statistical inference.
+
+-   Use a sample to estimate the population proportion from the sample average.
+
+-   Calculate the expected value and standard error of the sample average.
+
+# Sampling Model Parameters and Estimates
+
+-   The task of statistical inference is to estimate an unknown population parameter using observed data from a sample.
+
+```{=html}
+<!-- -->
+```
+-   In a sampling model, the collection of elements in the urn is called the *population.*
+
+```{=html}
+<!-- -->
+```
+-   A *parameter* is a number that summarizes data for an entire population.
+
+```{=html}
+<!-- -->
+```
+-   A *sample* is observed data from a subset of the population.
+
+```{=html}
+<!-- -->
+```
+-   An *estimate* is a summary of the observed data about a parameter that we believe is informative. It is a data-driven guess of the population parameter.
+
+![](images/clipboard-3095055459.png)
+
+-   The sample proportion is a random variable. Sampling gives random results drawn from the population distribution.
+
+### Code: Function for taking a random draw from a specific urn
+
+The **dslabs** package includes a function for taking a random draw of size n from the urn described in the video:
+
+```{r}
+library(tidyverse)
+library(dslabs)
+take_poll(25)    # draw 25 beads
+```
