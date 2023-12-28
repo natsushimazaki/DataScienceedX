@@ -207,3 +207,90 @@ X_hat <- 0.48
 se <- sqrt(X_hat*(1-X_hat)/25)
 pnorm(0.01/se) - pnorm(-0.01/se)
 ```
+
+### Margin of Error
+
+![](images/clipboard-2680709885.png)
+
+### A Monte Carlo Simulation for the CLT
+
+-   We can run Monte Carlo simulations to compare with theoretical results assuming a value of p.
+
+```{=html}
+<!-- -->
+```
+-   In practice, is unknown. We can corroborate theoretical results by running Monte Carlo simulations with one or several values of p.
+
+We don't know p, but we could run it for various values of p and sample sizes N and see that the theory works well for most values.------------------=
+
+-   One practical choice for p when modeling is Xbar, the observed value of in a sample Xhat.![](images/clipboard-2180675967.png)
+
+### Code: Monte Carlo simulation using a set value of p
+
+```{r}
+p <- 0.45    # unknown p to estimate
+N <- 1000
+
+# simulate one poll of size N and determine x_hat
+x <- sample(c(0,1), size = N, replace = TRUE, prob = c(1-p, p))
+x_hat <- mean(x)
+
+# simulate B polls of size N and determine average x_hat
+B <- 10000    # number of replicates
+N <- 1000    # sample size per replicate
+x_hat <- replicate(B, {
+    x <- sample(c(0,1), size = N, replace = TRUE, prob = c(1-p, p))
+    mean(x)
+})
+```
+
+### Code: Histogram and QQ-plot of Monte Carlo results
+
+```{r}
+library(tidyverse)
+library(gridExtra)
+p1 <- data.frame(x_hat = x_hat) %>%
+    ggplot(aes(x_hat)) +
+    geom_histogram(binwidth = 0.005, color = "black")
+p2 <- data.frame(x_hat = x_hat) %>%
+    ggplot(aes(sample = x_hat)) +
+    stat_qq(dparams = list(mean = mean(x_hat), sd = sd(x_hat))) +
+    geom_abline() +
+    ylab("X_hat") +
+    xlab("Theoretical normal")
+grid.arrange(p1, p2, nrow=1)
+```
+
+### The Spread
+
+![](images/clipboard-2485748537.png)
+
+### Bias: Why Not Run a Very Large Poll?
+
+-   An extremely large poll would theoretically be able to predict election results almost perfectly.
+
+-   These sample sizes are not practical. In addition to cost concerns, polling doesn't reach everyone in the population (eventual voters) with equal probability, and it also may include data from outside our population (people who will not end up voting).
+
+-   These systematic errors in polling are called *bias*. We will learn more about bias in the future.
+
+### Code: Plotting margin of error in an extremely large poll over a range of values of p
+
+```{r}
+library(tidyverse)
+N <- 100000
+p <- seq(0.35, 0.65, length = 100)
+SE <- sapply(p, function(x) 2*sqrt(x*(1-x)/N))
+data.frame(p = p, SE = SE) %>%
+    ggplot(aes(p, SE)) +
+    geom_line()
+```
+
+# Assessment 2.1: Introduction to Inference
+
+# Exercise 1. Sample average
+
+Write function called `take_sample` that takes the proportion of Democrats p and the sample size N as arguments and returns the sample average of Democrats (1) and Republicans (0).
+
+Calculate the sample average if the proportion of Democrats equals 0.45 and the sample size is 100.
+
+![](images/clipboard-1522920268.png)
