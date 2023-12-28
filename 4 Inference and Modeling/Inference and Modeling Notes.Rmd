@@ -56,5 +56,154 @@ The **dslabs** package includes a function for taking a random draw of size n f
 ```{r}
 library(tidyverse)
 library(dslabs)
+ds_theme_set()
 take_poll(25)    # draw 25 beads
+```
+
+### The Sample Average
+
+![](images/clipboard-1596829150.png)
+
+### Polling versus Forecasting
+
+-   A poll taken in advance of an election estimates p for that moment, not for election day.
+
+-   In order to predict election results, forecasters try to use early estimates of p to predict p on election day. We discuss some approaches in later sections.
+
+### Properties of Our Estimate
+
+![![](images/clipboard-610903079.png){width="237"}](images/clipboard-1317090737.png)
+
+![](images/clipboard-1002058319.png)
+
+# Assessment 1.1: Parameters and Estimates
+
+# Exercise 1. Polling - expected value of S
+
+1\. Suppose you poll a population in which a proportion p of voters are Democrats and 1−p are Republicans. Your sample size is N=25. Consider the random variable S which is the **total** number of Democrats in your sample. What is the expected value of this random variable? Hint: it’s a function of p.
+
+Ans. E(S) = 25 \* p
+
+# Exercise 2. Polling - standard error of S
+
+![](images/clipboard-3851961928.png)
+
+2\. What is the standard error of S ? Hint: it’s a function of p.
+
+![](images/clipboard-2080617049.png){width="181"}
+
+# Exercise 3. Polling - expected value of X-bar
+
+![![](images/clipboard-1955129058.png){width="122"}](images/clipboard-2815746691.png)
+
+3\. Consider the random variable S/N. This is equivalent to the sample average, which we have been denoting as ¯X. What is the expected value of the ¯X? Hint: it’s a function of p.
+
+# Exercise 4. Polling - standard error of X-bar
+
+![](images/clipboard-3808667543.png)
+
+![](images/clipboard-378992676.png){width="126"}
+
+4\. What is the standard error of ¯X? Hint: it’s a function of p.
+
+# Exercise 5. se versus p
+
+Write a line of code that calculates the standard error `se` of a sample average when you poll 25 people in the population. Generate a sequence of 100 proportions of Democrats `p` that vary from 0 (no Democrats) to 1 (all Democrats).
+
+Plot `se` versus `p` for the 100 different proportions.
+
+-   Use the `seq` function to generate a vector of 100 values of `p` that range from 0 to 1.
+
+-   Use the `sqrt` function to generate a vector of standard errors for all values of `p`.
+
+-   Use the `plot` function to generate a plot with `p` on the x-axis and `se` on the y-axis.
+
+```{r}
+# `N` represents the number of people polled
+N <- 25
+
+# Create a variable `p` that contains 100 proportions ranging from 0 to 1 using the `seq` function
+p <- seq(0,1, length.out = 100)
+p
+
+# Create a variable `se` that contains the standard error of each sample average
+se <- sqrt(p*(1-p)/N)
+se
+# Plot `p` on the x-axis and `se` on the y-axis
+plot(p, se)
+```
+
+# Exercise 6. Multiple plots of se versus p
+
+![](images/clipboard-1439325597.png)
+
+-   Your for-loop should contain two lines of code to be repeated for three different values of N.
+
+-   The first line within the for-loop should use the `sqrt` function to generate a vector of standard errors `se` for all values of `p`.
+
+-   The second line within the for-loop should use the `plot` function to generate a plot with `p` on the x-axis and `se` on the y-axis.
+
+-   Use the `ylim` argument to keep the y-axis limits constant across all three plots. The lower limit should be equal to 0 and the upper limit should equal 0.1 (it can be shown that this value is the highest calculated standard error across all values of `p` and `N`).
+
+```{r}
+# The vector `p` contains 100 proportions of Democrats ranging from 0 to 1 using the `seq` function
+p <- seq(0, 1, length = 100)
+
+# The vector `sample_sizes` contains the three sample sizes
+sample_sizes <- c(25, 100, 1000)
+
+# Write a for-loop that calculates the standard error `se` for every value of `p` for each of the three samples sizes `N` in the vector `sample_sizes`. Plot the three graphs, using the `ylim` argument to standardize the y-axis across all three plots.
+for(n in sample_sizes){
+    se <- sqrt(p*(1-p)/sample_sizes)
+    plot(p, se, ylim = c(0, 0.1))
+}
+```
+
+# Exercise 7. Expected value of d
+
+![](images/clipboard-847696336.png)
+
+![](images/clipboard-1315534093.png)
+
+# Exercise 8. Standard error of d
+
+![](images/clipboard-3313486290.png)
+
+![](images/clipboard-2452175276.png)
+
+# Exercise 9. Standard error of the spread
+
+![](images/clipboard-1801572909.png)
+
+```{r}
+# `N` represents the number of people polled
+N <- 25
+
+# `p` represents the proportion of Democratic voters
+p <- 0.45
+
+# Calculate the standard error of the spread. Print this value to the console.
+2*sqrt(p*(1-p)/N)
+```
+
+# Exercise 10. Sample size
+
+![](images/clipboard-2372263968.png)
+
+![](images/clipboard-2689455482.png)
+
+# Section 2 Overview
+
+![](images/clipboard-4246266515.png)
+
+### The Central Limit Theorem in Practice
+
+![](images/clipboard-4023891576.png)
+
+### Code: Computing the probability of Xbar  being within .01 of p
+
+```{r}
+X_hat <- 0.48
+se <- sqrt(X_hat*(1-X_hat)/25)
+pnorm(0.01/se) - pnorm(-0.01/se)
 ```
