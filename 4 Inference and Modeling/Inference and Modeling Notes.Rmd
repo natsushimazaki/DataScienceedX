@@ -585,6 +585,9 @@ After completing Section 3, you will be able to:
 The shaded area around the curve is related to the concept of confidence intervals.
 
 ```{r}
+library(dplyr)
+library(dslabs)
+library(ggplot2)
 data("nhtemp")
 data.frame(year = as.numeric(time(nhtemp)), temperature = as.numeric(nhtemp)) %>%
     ggplot(aes(year, temperature)) +
