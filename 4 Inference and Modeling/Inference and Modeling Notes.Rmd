@@ -1201,7 +1201,7 @@ mean(x)
 sd(x)
 ```
 
-# Exercise 2 - Sample the population of heights
+## Exercise 2 - Sample the population of heights
 
 Call the population average computed above μ and the standard deviation σ. Now take a sample of size 50, with replacement, and construct an estimate for μ and σ.
 
@@ -1513,3 +1513,58 @@ var <- polls %>%
   summarize(avg = mean(spread), s = sd(spread))
 var
 ```
+
+# Section 5 Overview
+
+In Section 5, you will learn about Bayesian statistics through looking at examples from rare disease diagnosis and baseball.
+
+After completing Section 5, you will be able to:
+
+-    Apply Bayes' theorem to calculate the probability of A given B.
+
+-   Understand how to use hierarchical models to make better predictions by considering multiple levels of variability.
+
+-   Compute a posterior probability using an empirical Bayesian approach.
+
+-   Calculate a 95% credible interval from a posterior probability
+
+### Bayesian Statistics
+
+![fixed value](images/clipboard-195186001.png)
+
+Bayesian statistics
+
+*Hierarchical models*
+
+### Bayes' Theorem
+
+![](images/clipboard-3440617336.png)
+
+![](images/clipboard-932485084.png)
+
+### Code: Monte Carlo simulation
+
+```{r}
+prev <- 0.00025    # disease prevalence 1/3600
+N <- 100000    # number of tests
+outcome <- sample(c("Disease", "Healthy"), N, replace = TRUE, prob = c(prev, 1-prev))
+
+N_D <- sum(outcome == "Disease")    # number with disease
+N_H <- sum(outcome == "Healthy")    # number healthy
+
+# for each person, randomly determine if test is + or -
+accuracy <- 0.99
+test <- vector("character", N)
+test[outcome == "Disease"] <- sample(c("+", "-"), N_D, replace=TRUE, prob = c(accuracy, 1-accuracy))
+test[outcome == "Healthy"] <- sample(c("-", "+"), N_H, replace=TRUE, prob = c(accuracy, 1-accuracy))
+
+table(outcome, test)
+```
+
+### Bayes in Practice
+
+-   The techniques we have used up until now are referred to as *frequentist statistics* as they consider only the frequency of outcomes in a dataset and do not include any outside information. Frequentist statistics allow us to compute confidence intervals and p-values.
+
+-   Frequentist statistics can have problems when sample sizes are small and when the data are extreme compared to historical results.
+
+-   *Bayesian statistics* allows prior knowledge to modify observed results, which alters our conclusions about event probabilities.
