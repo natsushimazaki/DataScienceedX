@@ -2801,3 +2801,11 @@ odds_A
 # Calculate the odds ratio to determine how many times larger the odds ratio is for grade A- polls than grade C- polls
 odds_A/odds_C
 ```
+
+## Exercise 4 - Significance
+
+We did not find meaningful differences between the poll results from grade A- and grade C- polls in this subset of the data, which only contains polls for about a week before the election. Imagine we expanded our analysis to include all election polls and we repeat our analysis. In this hypothetical scenario, we get that the p-value for the difference in prediction success if 0.0015 and the odds ratio describing the effect size of the performance of grade A- over grade B- polls is 1.07.
+
+Based on what we learned in the last section, which statement reflects the best interpretation of this result?
+
+![](images/clipboard-3748845528.png)
