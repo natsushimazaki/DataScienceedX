@@ -9,7 +9,7 @@ output: html_document
 
 The Installing Software section walks you through the steps to download and install R, RStudio, git (and git bash on Windows machines), create a GitHub account, and connect RStudio to GitHub.
 
-### Installing Software 
+### Installing Software
 
 -   R: the programming language we use to analyze data
 
@@ -17,7 +17,7 @@ The Installing Software section walks you through the steps to download and inst
 
 -   Git (and Git Bash for Windows): version control system
 
-### Installing R 
+### Installing R
 
 -   You need to install R before using RStudio, which is an interactive desktop environment.
 
@@ -29,7 +29,7 @@ The Installing Software section walks you through the steps to download and inst
 
 -   One can try using the R console, but for productivity purposes, we can switch to RStudio.
 
-### Installing RStudio 
+### Installing RStudio
 
 -   You can download the latest version of RStudio at the [RStudio website External link](https://www.rstudio.com/products/rstudio/download/).
 
@@ -39,7 +39,7 @@ The Installing Software section walks you through the steps to download and inst
 
 -   Choose "Yes" for all defaults in the installation process.
 
-### Using RStudio for the first time 
+### Using RStudio for the first time
 
 -   In Windows, search for Rstudio in "Start"
 
@@ -49,7 +49,7 @@ The Installing Software section walks you through the steps to download and inst
 
 -   Key bindings from Rstudio cheatsheet can be located with Help \> cheatsheet \> Rstudio IDE cheatsheet
 
-### Installing packages 
+### Installing packages
 
 -   We will be using **tidyverse** and **dslabs** packages for this course, which do not come preinstalled in base R.
 
@@ -71,7 +71,7 @@ install.packages(c("tidyverse", "dslabs")） # to install two packages at the sa
 installed.packages() # to see the list of all installed packages
 ```
 
-### Running commands while editing scripts 
+### Running commands while editing scripts
 
 -   RStudio has many useful features as an R editor, including the ability to test code easily as we write scripts and several autocomplete features.
 
@@ -91,7 +91,7 @@ installed.packages() # to see the list of all installed packages
 library(tidyverse)
 ```
 
-### Keeping Organized with RStudio Projects 
+### Keeping Organized with RStudio Projects
 
 -   RStudio provides a way to keep all the components of a data analysis project organized into one folder and to keep track of information about this project.
 
@@ -99,7 +99,7 @@ library(tidyverse)
 
 -   The project name will appear in the upper left corner or the upper right corner, depending on your operating system. When you start an RStudio session with no project, it will display "Project: (None)".
 
-### Installing Git Introduction 
+### Installing Git Introduction
 
 -   Git is a version control system, tracking changes and coordinating the editing of code.
 
@@ -111,13 +111,13 @@ library(tidyverse)
 
 1.  Download Git bash from [https://git-scm.com/ External link](https://git-scm.com/)
 
-2.   When asked to choose the default editor for Git, we recommend choosing nano if you do not already know VIM.
+2.  When asked to choose the default editor for Git, we recommend choosing nano if you do not already know VIM.
 
-3.   The "git and optional Unix tools from Windows" option will allow you to learn Unix from Rstudio, however, it might interfere with the Windows command line.
+3.  The "git and optional Unix tools from Windows" option will allow you to learn Unix from Rstudio, however, it might interfere with the Windows command line.
 
-4.   Finally, change the Rstudio preference so that you are using Git bash as the terminal (only for Windows user).
+4.  Finally, change the Rstudio preference so that you are using Git bash as the terminal (only for Windows user).
 
-### GitHub 
+### GitHub
 
 -   Sign up for a GitHub account, with a name that is professional, short, and easy to remember
 
@@ -132,3 +132,5 @@ To create a new GitHub repository and link it to an RStudio project, follow 2 st
 Step 1: Initialize a new repo on GitHub by clicking repository \> new \> choose a descriptive name.
 
 Step 2: Connect to RStudio (next video).
+
+![](images/clipboard-1092222367.png)
