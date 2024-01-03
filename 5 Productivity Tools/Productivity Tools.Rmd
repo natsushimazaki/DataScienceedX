@@ -279,7 +279,7 @@ pwd mkdir git-example cd git-example git clone https://github.com/rairizarry/mur
 
 ![](images/clipboard-2280054679.png)
 
-### Creating a GitHub Repository 
+### Creating a GitHub Repository
 
 -   Recap: two ways to get started, one is cloning an existing repository, the other is initializing our own
 
@@ -303,56 +303,47 @@ cd ~/projects/murders git init git add README.txt git commit -m "First commit. A
 
 # Section 5 Overview
 
-In Section 5, you will learn additional useful Unix commands, including
-arguments, getting help, pipes, and wildcards that are all helpful in
-data science.
+In Section 5, you will learn additional useful Unix commands, including arguments, getting help, pipes, and wildcards that are all helpful in data science.
 
 ### Advanced Unix: Arguments
 
 -   Arguments typically are defined using a dash (`-)` or two dashes (`--)` followed by a letter of a word.
 
-```{=html}
 <!-- -->
-```
+
 -   `r`: recursive. For example, `rm -r <directory-name>`: remove all files, subdirectories, files in subdirectories, subdirectories in subdirectories, etc.
 
-```{=html}
 <!-- -->
-```
+
 -   Combine arguments: `rm -rf directory-name`
 
-```{=html}
 <!-- -->
-```
+
 -   `ls -a`: Shows all files in the directories including hidden files (e.g. `.git` file when initializing using `git init`) (a for all).
 
-```{=html}
 <!-- -->
-```
+
 -   `ls -l`: Returns more information about the files (i.e. `l` for long).
 
-```{=html}
 <!-- -->
-```
+
 -   `ls -t`: Shows files in chronological order.
 
-```{=html}
 <!-- -->
-```
+
 -   `ls -r`: Reverses the order of how files are shown.
 
-```{=html}
 <!-- -->
-```
+
 -   `ls -lart`: Shows more information for all files in reverse chronological order
 
-### Advanced Unix: Getting Help and Pipes 
+### Advanced Unix: Getting Help and Pipes
 
 -   **Getting Help:** Use `man + command name` to get help (e.g. `man ls`). Note that it is not available for Git Bash. For Git Bash, you can use `command -- help` (e.g. `ls --help`).
 
 -   **Pipes:** Pipes the results of a command to the command after the pipe. Similar to the pipe `%>%` in R. For example, `man ls | less` (and its equivalent in Git Bash: `ls --help | less`). Also useful when listing files with many files (e.g `ls -lart | less`).
 
-### Advanced Unix: Wild cards 
+### Advanced Unix: Wild cards
 
 -   `*` means any number of any combination of characters. Specifically, to list all html files: `ls *.html` and to remove all html files in a directory: `rm *.html`.
 
@@ -362,7 +353,7 @@ data science.
 
 -   **Warning: Combining rm with the `*` wild card can be dangerous. There are combinations of these commands that will erase your entire file system without asking you for confirmation. Make sure you understand how it works before using this wild card with the rm command.**
 
-### Advanced Unix: Environment Variables and Shells 
+### Advanced Unix: Environment Variables and Shells
 
 -   In Unix, variables are distinguished from other entities by adding a `$` in front. For example, the home directory is stored in `$HOME`.
 
@@ -374,7 +365,7 @@ data science.
 
 -   Change environmental variables: (*Don’t actually run this command though!*) `export PATH = /usr/bin/`
 
-### Advanced Unix: Executables, Permissions, and File Types 
+### Advanced Unix: Executables, Permissions, and File Types
 
 -   In Unix, all programs are files. They are called executables. So, `ls`, `mv`, and `git` are all files.
 
@@ -390,7 +381,7 @@ data science.
 
 -   This string also indicates the permission of the file: is it readable? writable? executable? Can other users on the system read the file? Can other users on the system edit the file? Can other users execute if the file is executable?
 
-### Advanced Unix: Commands You Should Learn 
+### Advanced Unix: Commands You Should Learn
 
 -   Be aware of common commands and know what they do.
 
