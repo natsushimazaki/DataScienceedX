@@ -249,4 +249,184 @@ june_polls %>% ggplot(aes(poll_type, spread)) +
   geom_jitter()
 ```
 
-\
+### Question 7: Combined spread across poll type 
+
+Calculate the confidence intervals of the spread combined across all polls in `june_polls`, grouping by poll type. Recall that to determine the standard error of the spread, you will need to double the standard error of the estimate.
+
+Use this code (which determines the total sample size per poll type, gives each spread estimate a weight based on the poll's sample size, and adds an estimate of p from the combined spread) to begin your analysis:
+
+```{r}
+combined_by_type <- june_polls %>%
+        group_by(poll_type) %>%
+        summarize(N = sum(samplesize),
+                  spread = sum(spread*samplesize)/N,
+                  p_hat = (spread + 1)/2)
+
+#What is the lower bound of the 95% confidence interval for online voters?
+spread_online <- combined_by_type$spread[1]
+
+se_p_hat_online <- sqrt(p_hat_online * (1-p_hat_online)/combined_by_type$N[1])
+
+spread_online - qnorm(0.975)* 2* se_p_hat_online 
+
+#What is the upper bound of the 95% confidence interval for online voters?
+spread_online + qnorm(0.975)* 2 * se_p_hat_online 
+
+
+#Code from edX:
+combined_by_type <- june_polls %>%
+    group_by(poll_type) %>%
+    summarize(N = sum(samplesize),
+              spread = sum(spread*samplesize)/N,
+              p_hat = (spread + 1)/2,
+              se_spread = 2*sqrt(p_hat*(1-p_hat)/N),
+              spread_lower = spread - qnorm(.975)*se_spread,
+              spread_upper = spread + qnorm(.975)*se_spread)
+
+combined_by_type %>%
+    filter(poll_type == "Online") %>%
+    pull(spread_lower)
+
+combined_by_type %>%
+    filter(poll_type == "Online") %>%
+    pull(spread_upper)
+```
+
+### Question 8: Interpreting combined spread estimates across poll type 
+
+Interpret the confidence intervals for the combined spreads for each poll type calculated in the previous problem.
+
+Which of the following are TRUE about the confidence intervals of the combined spreads for different poll types?
+
+```{r}
+combined_by_type <- june_polls %>%
+        group_by(poll_type) %>%
+        summarize(N = sum(samplesize),
+                  spread = sum(spread*samplesize)/N,
+                  p_hat = (spread + 1)/2)
+combined_by_type %>%
+  mutate(lower = spread - qnorm(.975)*2*sqrt(p_hat*(1-p_hat)/N),
+         upper = spread + qnorm(.975)*2*sqrt(p_hat*(1-p_hat)/N),
+         ci_amplitude = abs(upper-lower),
+         hit_true_d = lower <= -0.038 & upper >= -0.038
+         )
+```
+
+# Brexit poll analysis - Part 3
+
+```{r}
+# suggested libraries
+library(tidyverse)
+
+# load brexit_polls object and add x_hat column
+library(dslabs)
+data(brexit_polls)
+brexit_polls <- brexit_polls %>%
+    mutate(x_hat = (spread + 1)/2)
+
+# final proportion voting "Remain"
+p <- 0.481
+```
+
+### Question 9: Chi-squared p-value 
+
+```{r}
+# This code computes the confidence intervals for all Brexit polls in 2016 and then calculates whether the confidence intervals covers the actual value of the spread d = -0.038.
+brexit_hit <- brexit_polls %>%
+  mutate(p_hat = (spread + 1)/2,
+         se_spread = 2*sqrt(p_hat*(1-p_hat)/samplesize),
+         spread_lower = spread - qnorm(.975)*se_spread,
+         spread_upper = spread + qnorm(.975)*se_spread,
+         hit = spread_lower < -0.038 & spread_upper > -0.038) %>%
+  select(poll_type, hit)
+
+#Use brexit_hit to make a two-by-two table of poll type and hit status. Then use the chisq.test() function to perform a chi-squared test to determine whether the difference in hit rate is significant. 
+two_by_two <- t(table(brexit_hit$poll_type, brexit_hit$hit))
+two_by_two
+
+#What is the p-value of the chi-squared test comparing the hit rate of online and telephone polls?
+chisq.test(two_by_two)
+
+#edX code
+brexit_chisq <- table(brexit_hit$poll_type, brexit_hit$hit)
+chisq.test(brexit_chisq)$p.value
+ # online > telephone
+hit_rate <- brexit_hit %>%
+    group_by(poll_type) %>%
+    summarize(avg = mean(hit))
+hit_rate$avg[hit_rate$poll_type == "Online"] > hit_rate$avg[hit_rate$poll_type == "Telephone"]
+
+# statistically significant
+chisq.test(brexit_chisq)$p.value < 0.05
+```
+
+### Question 10: Odds ratio of online and telephone poll hit rate 
+
+Use the two-by-two table constructed in the previous exercise to calculate the odds ratio between the hit rate of online and telephone polls to determine the magnitude of the difference in performance between the poll types.
+
+Calculate the odds that an online poll generates a confidence interval that covers the actual value of the spread.
+
+```{r}
+two_by_two
+odds_online_true <- (48/(37+48)) / (37/(37+48))
+odds_online_true
+```
+
+Calculate the odds that a telephone poll generates a confidence interval that covers the actual value of the spread.
+
+```{r}
+odds_telephone_true <- (10/(32+10))/(32/(32+10))
+odds_telephone_true
+```
+
+Calculate the odds ratio to determine how many times larger the odds are for online polls to hit versus telephone polls.
+
+```{r}
+odds_ratio <- (32*48)/(37*10)
+odds_ratio
+```
+
+### Question 11: Plotting spread over time 
+
+### Question 12: Plotting raw percentages over time 
+
+Use the following code to create the object `brexit_long`, which has a column `vote` containing the three possible votes on a Brexit poll ("remain", "leave", "undecided") and a column `proportion` containing the raw proportion choosing that vote option on the given poll:
+
+```{r}
+brexit_long <- brexit_polls %>%
+    gather(vote, proportion, "remain":"undecided") %>%
+    mutate(vote = factor(vote))
+```
+
+Make a graph of proportion over time colored by vote. Add a smooth trendline with `geom_smooth()` and `method = "loess"` with a span of 0.3.
+
+Which of the following are TRUE?
+
+```{r}
+brexit_polls %>% ggplot(aes(enddate, spread, color = poll_type)) +
+  geom_smooth(method = "loess", span = 0.4) + 
+  geom_point() +
+  geom_hline(yintercept = d)
+
+brexit_polls
+```
+
+### Question 12: Plotting raw percentages over time 
+
+Use the following code to create the object `brexit_long`, which has a column `vote` containing the three possible votes on a Brexit poll ("remain", "leave", "undecided") and a column `proportion` containing the raw proportion choosing that vote option on the given poll:
+
+```{r}
+brexit_long <- brexit_polls %>%
+    gather(vote, proportion, "remain":"undecided") %>%
+    mutate(vote = factor(vote))
+```
+
+Make a graph of proportion over time colored by vote. Add a smooth trendline with `geom_smooth()` and `method = "loess"` with a span of 0.3.
+
+Which of the following are TRUE?\
+
+```{r}
+brexit_long %>% ggplot(aes(enddate, proportion, color = vote)) + 
+  geom_smooth(method = "loess", span = 0.3)
+
+```
